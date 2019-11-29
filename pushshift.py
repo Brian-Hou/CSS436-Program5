@@ -3,22 +3,54 @@ import json
 import random
 import html
 
-difficulty = 'easy'     # or intermediate or hard
+def return_random_problem():
+    difficulty = ['easy', 'medium', 'hard']
 
-json_string = requests.get(r'https://api.pushshift.io/reddit/search/submission/?subreddit=dailyprogrammer&title=' + difficulty + r'%20challenge&size=500').text
+    difficulty_len = len(difficulty)
 
-data = json.JSONDecoder().decode(json_string)['data']
+    random_index = random.randrange(0, difficulty_len)
 
-res_len = len(data)
+    difficulty_type = difficulty[random_index]
 
-index = random.randrange(0, res_len)
+    json_string = requests.get(r'https://api.pushshift.io/reddit/search/submission/?subreddit=dailyprogrammer&title=' + difficulty_type + r'%20challenge&size=500').text
 
-target = data[index]['id']
+    data = json.JSONDecoder().decode(json_string)['data']
 
-json_string = requests.get('https://api.pushshift.io/reddit/search/submission/?ids=' + target).text
+    res_len = len(data)
 
-data = json.JSONDecoder().decode(json_string)['data'][0]
+    index = random.randrange(0, res_len)
 
-print(data['title'] + '\n' + html.unescape(data['selftext']))
+    target = data[index]['id']
 
-# https://github.com/pushshift/api
+    json_string = requests.get('https://api.pushshift.io/reddit/search/submission/?ids=' + target).text
+
+    data = json.JSONDecoder().decode(json_string)['data'][0]
+    return data
+
+    #return data['title'] + '\n' + html.unescape(data['selftext'])
+
+
+
+
+
+
+
+# difficulty = 'easy'     # or intermediate or hard
+
+# json_string = requests.get(r'https://api.pushshift.io/reddit/search/submission/?subreddit=dailyprogrammer&title=' + difficulty + r'%20challenge&size=500').text
+
+# data = json.JSONDecoder().decode(json_string)['data']
+
+# res_len = len(data)
+
+# index = random.randrange(0, res_len)
+
+# target = data[index]['id']
+
+# json_string = requests.get('https://api.pushshift.io/reddit/search/submission/?ids=' + target).text
+
+# data = json.JSONDecoder().decode(json_string)['data'][0]
+
+# print(data['title'] + '\n' + html.unescape(data['selftext']))
+
+# # https://github.com/pushshift/api

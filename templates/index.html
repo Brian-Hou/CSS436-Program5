@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Program5</title>
+</head>
+<body>
+    <h1>Program5: Reddit Daily Programmer Problems</h1>
+    <form action="/generate" method="POST">
+        Enter Difficulty (Easy, Medium, or Hard):<input type="text" name="difficulty"/>
+         <button type="submit" name="generate">Submit</button><br/>
+     </form>
+    <form action="/random" method="POST">
+        <button type="submit" name="random">Generate Random Problem</button><br/>
+    </form>
+    <br/>
+    <form action="/subscribe" method="POST">
+       Enter Email Address:<input type="text" name="email"/><br/>
+        <button type="submit" name="subscribe">Subscribe to our Email Listing!</button><br/>
+    </form>
+    <br/>
+    
+
+<!--     
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {%  for message in messages %}
+                <h3>{{ message }}</h3>
+            {%  endfor %}
+        {% endif %}
+    {% endwith %} --> 
+</body>
+</html>
