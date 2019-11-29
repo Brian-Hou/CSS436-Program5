@@ -5,8 +5,12 @@
     <title>Display Problem</title>
 </head>
 <body>
+        {% autoescape false %}
+        <h1>{{title}}</h1>
+        
+        {{context}}
+        {% endautoescape %}
     
-    {{context}}
     
 
   
