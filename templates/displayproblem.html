@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Problem</title>
+</head>
+    <style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+        overflow: hidden;
+        background-color: #333;
+        }
+
+        .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        }
+
+        .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+        }
+
+        .topnav a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+    </style>
+    <body>
+
+        <div class="topnav">
+                <a class="active" href="/">Home</a>
+        </div>
+
+        {% autoescape false %}
+        <h1>{{title}}</h1> 
+        
+        {{context}}
+        {% endautoescape %}
+
+        {% autoescape false %}
+        <h1>{{title_two}}</h1> 
+        
+        {{context_two}}
+        {% endautoescape %}
+
+        <br/>
+        <br/>
+
+        <h1>Text Editor</h1>
+        <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
+        <script src="https://codemirror.net/lib/codemirror.js"></script>
+        <script src="https://codemirror.net/mode/python/python.js"></script>
+        <textarea id="myTextarea"></textarea>
+        <script>
+            var editor = CodeMirror.fromTextArea(myTextarea, {
+            lineNumbers: true
+            });
+        </script>
+    
+   
+   
+    
+
+</body>
+</html>
