@@ -15,13 +15,21 @@ def home():
 def random():
     returned_data = pushshift.return_random_problem()
     data = html.unescape(returned_data['selftext'])
-    data_with_br = data.replace("\n", "<br />")
+    data = pushshift.markdown_to_html(data)
+
     title = returned_data['title'] + '\n' 
     title_with_br = title.replace("\n", "<br />")
-    #print(data + title)
+
+    return render_template("displayproblem.html", context=data, title=title_with_br)
 
 
-    return render_template("displayproblem.html", context=data_with_br, title=title_with_br)
+    # data_with_br = data.replace("\n", "<br />")
+    # title = returned_data['title'] + '\n' 
+    # title_with_br = title.replace("\n", "<br />")
+    # #print(data + title)
+
+
+    # return render_template("displayproblem.html", context=data_with_br, title=title_with_br)
 
    
     

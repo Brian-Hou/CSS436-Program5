@@ -25,6 +25,7 @@ def return_random_problem():
     json_string = requests.get('https://api.pushshift.io/reddit/search/submission/?ids=' + target).text
 
     data = json.JSONDecoder().decode(json_string)['data'][0]
+    
     return data
 
     #return data['title'] + '\n' + html.unescape(data['selftext'])
@@ -51,7 +52,10 @@ def difficulty_specified_problem(difficulty_type):
     #return data['title'] + '\n' + html.unescape(data['selftext'])
 
 
+def markdown_to_html(markdown_string):
+    
 
+    return requests.post('https://api.github.com/markdown', json={'text': markdown_string}).text
 
 
 
