@@ -41,7 +41,9 @@ def generate():
     difficulty_type_data = pushshift.difficulty_specified_problem(difficulty_type)
     print(difficulty_type_data)
     returned_difficulty_type_data = html.unescape(difficulty_type_data['selftext'])
-    returned_difficulty_type_data = returned_difficulty_type_data.replace("\n", "<br />")
+    returned_difficulty_type_data = pushshift.markdown_to_html(returned_difficulty_type_data)
+
+    # returned_difficulty_type_data = returned_difficulty_type_data.replace("\n", "<br />")
     title_type_with_br = difficulty_type_data['title'] + '\n' 
     title_type_with_br = title_type_with_br.replace("\n", "<br />")
 
