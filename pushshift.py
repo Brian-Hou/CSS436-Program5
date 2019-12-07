@@ -2,6 +2,7 @@ import requests
 import json
 import random
 import html
+import sys
 
 def return_random_problem():
     difficulty = ['easy', 'medium', 'hard']
@@ -57,7 +58,34 @@ def markdown_to_html(markdown_string):
 
     return requests.post('https://api.github.com/markdown', json={'text': markdown_string}).text
 
+def get_code_result(code):
+    data = {
+        'client_secret': '65025ef64a001966832f0d5b0c48e5ee3c4eca99',
+        'source': code,
+        'lang': 'PYTHON'
+    }
+    result = requests.post('https://api.hackerearth.com/v3/code/run/', data=data).text
+    result = json.JSONDecoder().decode(result)
+    
 
+    if 'run_status' in result:
+        print(result['run_status']['status'])
+        if 'status' in result['run_status'] and result['run_status']['status'] == 'CE':
+            error = html.escape(result['compile_status']).replace('\n', '<br/>').replace(' ', '&nbsp')
+            print(error)
+            return error, 'Compiler error...'
+        elif sys.getsizeof(result['run_status']['output_html']) > 1048576:
+            return '*truncated*', 'Output too large...'
+        elif 'signal' in result['run_status'] and result['run_status']['signal'] == 'SIGKILL':
+            return result['run_status']['output_html'], 'Timed out after 5 seconds...'
+        elif 'stderr' in result['run_status'] and len(result['run_status']['stderr']) > 0:
+            result_str = result['run_status']['output_html'] + '<br/><br/>'
+            result_str += html.escape(result['run_status']['stderr']).replace('\n', '<br/>').replace(' ', '&nbsp')
+            return result_str, 'Check stderr...'
+        else:
+            return result['run_status']['output_html'], 'Success'
+    else:
+        return '', 'Source code can\'t be empty...'
 
 # difficulty = 'easy'     # or intermediate or hard
 

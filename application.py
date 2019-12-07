@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Markup
 from botocore.errorfactory import ClientError
 from boto3.dynamodb.conditions import Key, Attr
 import boto3
@@ -154,6 +154,14 @@ def subscribe():
 
 
     return render_template("index.html")
+
+@application.route("/submit", methods=['POST'])
+def submit():
+    code = request.form['code']
+    print(code)
+    #return Markup(pushshift.get_code_result(code))
+    result = pushshift.get_code_result(code)
+    return render_template('result.html', result=Markup(result[0]), status=result[1])
 
 @application.route("/email", methods=['POST'])
 def send_emails_to_subscribers():

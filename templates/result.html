@@ -1,0 +1,20 @@
+<head>
+        <style>
+                #resultbody {
+                    margin: 0;
+                    font-family: monospace;
+                    }
+        </style>
+        <script>
+            function goBack() {
+                history.go(-1);
+            }
+        </script>
+</head>
+<body>
+    <button onclick="goBack()">Go back to the Problem</button>
+    <br/></br>
+    {{ status }}
+    <br/></br>
+    <p id="resultbody">{{ result }}</p>
+</body>
