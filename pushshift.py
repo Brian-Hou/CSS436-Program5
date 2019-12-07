@@ -2,6 +2,7 @@ import requests
 import json
 import random
 import html
+import sys
 
 def return_random_problem():
     difficulty = ['easy', 'medium', 'hard']
@@ -65,12 +66,16 @@ def get_code_result(code):
     }
     result = requests.post('https://api.hackerearth.com/v3/code/run/', data=data).text
     result = json.JSONDecoder().decode(result)
-    print(result)
+    
+
     if 'run_status' in result:
+        print(result['run_status']['status'])
         if 'status' in result['run_status'] and result['run_status']['status'] == 'CE':
             error = html.escape(result['compile_status']).replace('\n', '<br/>').replace(' ', '&nbsp')
             print(error)
             return error, 'Compiler error...'
+        elif sys.getsizeof(result['run_status']['output_html']) > 1048576:
+            return '*truncated*', 'Output too large...'
         elif 'signal' in result['run_status'] and result['run_status']['signal'] == 'SIGKILL':
             return result['run_status']['output_html'], 'Timed out after 5 seconds...'
         elif 'stderr' in result['run_status'] and len(result['run_status']['stderr']) > 0:

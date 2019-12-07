@@ -9,7 +9,7 @@ import html
 
 application = Flask(__name__)
 
-AWS_REGION = "us-east-1"
+AWS_REGION = "us-west-2"
 table_name = "program5_email_table"
 dynamodb = boto3.resource('dynamodb', region_name=AWS_REGION)
 dynamo_table = dynamodb.Table(table_name)
