@@ -17,9 +17,6 @@ client = boto3.client('ses',region_name=AWS_REGION)
 
 
 
-list_of_email_recipients = []
-
-
 
 
 def send_verification_email(email):
@@ -92,7 +89,7 @@ def create_dynamodb_table():
 def home():
     return render_template("index.html")
 
-@application.route("/random", methods=['POST'])
+@application.route("/random", methods=['GET'])
 def random():
     returned_data = pushshift.return_random_problem()
     data = html.unescape(returned_data['selftext'])
@@ -177,6 +174,7 @@ def send_emails_to_subscribers():
 
     response = dynamo_table.scan()
     Item = {}
+    list_of_email_recipients = []
     for i in response['Items']:
         if check_if_verified(i['emailAddress']):
             response = dynamo_table.query(
@@ -230,7 +228,7 @@ def send_emails_to_subscribers():
             print(response['MessageId'])
 
     
-        
+    
     return render_template("index.html")
 
 

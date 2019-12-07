@@ -7,14 +7,19 @@
 <body>
     <h1>Program 5: Reddit Daily Programmer Problems</h1>
     <form action="/generate" method="POST">
-        Enter Difficulty (Easy, Medium, or Hard):<input type="text" name="difficulty"/>
+        Select Difficulty (Easy, Medium, or Hard):
+        <select name="difficulty">
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
          <button type="submit" name="generate">Submit</button><br/>
      </form>
     <br/>
     <br/>
-    <form action="/random" method="POST">
+    <form action="/random" method="GET">
         Generate a Random Problem:
-        <button type="submit" name="random">Generate</button><br/>
+        <input type="submit" name="random" value="Generate" ><br/>
     </form>
     <br/>
     <br/>
